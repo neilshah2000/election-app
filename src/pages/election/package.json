@@ -1,0 +1,7 @@
+{
+    "name": "Election",
+    "version": "1.0.0",
+    "private": true,
+    "main": "Election.js"
+  }
+  

@@ -79,7 +79,12 @@ const structure = [
     label: "Background",
     link: "",
     icon: <Dot size="small" color="secondary" />,
-  },
+  },{
+    id: 15,
+    label: "Election",
+    link: "/app/election",
+    icon: <TypographyIcon />,
+  }
 ];
 
 function Sidebar({ location }) {
