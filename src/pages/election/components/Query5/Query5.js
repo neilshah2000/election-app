@@ -25,7 +25,6 @@ export default function Query5(props) {
     useEffect(() => {
         partyLostDeposit(selectedParty.value).then((ld) => {
             setLostDeposits(ld);
-            console.log(ld);
         });
     }, [selectedParty])
 

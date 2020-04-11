@@ -8,10 +8,9 @@ exports.listAll = () => {
             'Content-Type': 'application/json',
         }
     }).then((response) => {
-        console.log(response);
         return response.json();
     }).catch((err) => {
-        console.log(err)
+        console.error(err)
     })
 }
 
@@ -23,10 +22,9 @@ exports.getConstituencyWinner = (id) => {
             'Content-Type': 'application/json',
         }
     }).then((response) => {
-        console.log(response);
         return response.json();
     }).catch((err) => {
-        console.log(err)
+        console.error(err)
     })
 }
 
@@ -38,10 +36,9 @@ exports.getConstituencyContestants = (id) => {
             'Content-Type': 'application/json',
         }
     }).then((response) => {
-        console.log(response);
         return response.json();
     }).catch((err) => {
-        console.log(err)
+        console.error(err)
     })
 }
 
@@ -53,10 +50,9 @@ exports.getElectionWinner = () => {
             'Content-Type': 'application/json',
         }
     }).then((response) => {
-        console.log(response);
         return response.json();
     }).catch((err) => {
-        console.log(err)
+        console.error(err)
     })
 }
 
@@ -68,10 +64,9 @@ exports.getElectionRanking = () => {
             'Content-Type': 'application/json',
         }
     }).then((response) => {
-        console.log(response);
         return response.json();
     }).catch((err) => {
-        console.log(err)
+        console.error(err)
     })
 }
 
@@ -83,10 +78,9 @@ exports.partyLostDeposit = (party) => {
             'Content-Type': 'application/json',
         }
     }).then((response) => {
-        console.log(response);
         return response.json();
     }).catch((err) => {
-        console.log(err)
+        console.error(err)
     })
 }
 
@@ -98,9 +92,8 @@ exports.allLostDeposits = () => {
             'Content-Type': 'application/json',
         }
     }).then((response) => {
-        console.log(response);
         return response.json();
     }).catch((err) => {
-        console.log(err)
+        console.error(err)
     })
 }

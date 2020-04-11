@@ -16,7 +16,6 @@ export default function Query2(props) {
     useEffect(() => {
         getConstituencyContestants(selectedConstituency.value).then((contestants) => {
             setConstContestants(contestants);
-            console.log(contestants);
         });
     }, [selectedConstituency])
 

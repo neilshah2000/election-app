@@ -20,7 +20,6 @@ export default function Election(props) {
     useEffect(() => {
         listAll().then((data) => {
             setConstituencies(data);
-            console.log(data);
         });
     }, [])
 

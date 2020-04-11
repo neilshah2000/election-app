@@ -3,17 +3,13 @@ import { getElectionRanking } from '../../../../election.service.js';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-// styles
-import useStyles from "./styles";
 
 export default function Query4(props) {
     const [ranking, setRanking] = useState(undefined)
-    var classes = useStyles();
 
     useEffect(() => {
         getElectionRanking().then((rank) => {
             setRanking(rank);
-            console.log(rank);
         });
     }, [])
 

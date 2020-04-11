@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import {
   AppBar,
   Toolbar,
@@ -9,22 +9,14 @@ import {
 // styles
 import useStyles from "./styles";
 
-// context
-import {
-  useLayoutState,
-  useLayoutDispatch,
-} from "../../context/LayoutContext";
-
 export default function Header(props) {
   var classes = useStyles();
-
-
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" weight="medium" className={classes.logotype}>
-          React Material Admin
+          Neil Shah - ADM CS4
         </Typography>
         <div className={classes.grow} />
         </Toolbar>

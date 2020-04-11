@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getElectionWinner } from '../../../../election.service.js';
 
-// styles
-import useStyles from "./styles";
 
 export default function Query3(props) {
-    const [winner, setWinner] = React.useState('');
-    var classes = useStyles();
+    const [winner, setWinner] = useState('');
 
     useEffect(() => {
         getElectionWinner().then((mWin) => {
             setWinner(mWin);
-            console.log(mWin);
         });
     }, [])
 

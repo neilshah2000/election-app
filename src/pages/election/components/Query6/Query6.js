@@ -15,7 +15,6 @@ export default function Query6(props) {
     useEffect(() => {
         allLostDeposits().then((ld) => {
             setLostDeposits(ld);
-            console.log(ld);
         });
     }, [])
 
