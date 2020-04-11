@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { getConstituencyWinner } from './../../../../election.service.js';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Select from 'react-select-virtualized';
 
 // styles
 import useStyles from "./styles";
-import { useTheme } from "@material-ui/styles";
 
 export default function Query1(props) {
     const [selectedConstituency, setSelectedConstituency] = React.useState('');
     const [constWinner, setConstWinner] = React.useState(undefined)
     var classes = useStyles();
-    var theme = useTheme();
+
+    const selectOptions = props.constituencies.map((myConst, index) => {
+        return {
+            value: myConst._id,
+            label: myConst.area
+        }
+    })
 
     useEffect(() => {
-        getConstituencyWinner(selectedConstituency).then((winner) => {
+        getConstituencyWinner(selectedConstituency.value).then((winner) => {
             setConstWinner(winner);
             console.log(winner);
         });
     }, [selectedConstituency])
 
-    const handleChange = (event) => {
-        setSelectedConstituency(event.target.value);
+    const handleChange = (selected) => {
+        setSelectedConstituency(selected);
     };
 
     return (
@@ -32,16 +36,12 @@ export default function Query1(props) {
             <FormControl className={classes.formControl}>
                 <InputLabel id="const-label">Constituency</InputLabel>
                 <Select
-                    labelId="const-label"
-                    id="const-select"
+                    options={selectOptions}
                     value={selectedConstituency}
-                    onChange={handleChange}>
-                    {props.constituencies.map(aConst => <MenuItem key={aConst._id} value={aConst}>{aConst.area}</MenuItem>)}
-                </Select>
+                    onChange={handleChange}/>
             </FormControl>
             { constWinner && 
-                <p>Winner: {constWinner.party}</p>
-            }
+                <p>Winner: {constWinner.party}</p>}
         </div>
     )
 }

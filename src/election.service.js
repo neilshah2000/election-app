@@ -15,8 +15,8 @@ exports.listAll = () => {
     })
 }
 
-exports.getConstituencyWinner = (aConst) => {
-    return fetch(backEndUrl + '/api/election/winner/' + aConst._id, {
+exports.getConstituencyWinner = (id) => {
+    return fetch(backEndUrl + '/api/election/winner/' + id, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

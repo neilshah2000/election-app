@@ -27,34 +27,37 @@ export default function Election(props) {
     return (
         <div>
             <h1>Election Page</h1>
-            <Card className={classes.card}>
-                <CardContent>
-                    <Query1 constituencies={constituencies}></Query1>
-                </CardContent>
-            </Card>
-            <Card className={classes.card}>
-                <CardContent>
-                    <Query2 constituencies={constituencies}></Query2>
-                </CardContent>
-            </Card>
-            <Card className={classes.card}>
-                <CardContent>
-                    <Box display="flex" p={1} bgcolor="background.paper">
-                        <Query3 constituencies={constituencies}></Query3>
-                        <Query4 constituencies={constituencies}></Query4>
-                    </Box>
-                </CardContent>
-            </Card>
-            <Card className={classes.card}>
-                <CardContent>
-                    <Query5 constituencies={constituencies}></Query5>
-                </CardContent>
-            </Card>
-            <Card className={classes.card}>
-                <CardContent>
-                    <Query6 constituencies={constituencies}></Query6>
-                </CardContent>
-            </Card>
+            { constituencies.length > 0 &&
+            <div>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <Query1 constituencies={constituencies}></Query1>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <Query2 constituencies={constituencies}></Query2>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <Box display="flex" p={1} bgcolor="background.paper">
+                            <Query3 constituencies={constituencies}></Query3>
+                            <Query4 constituencies={constituencies}></Query4>
+                        </Box>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <Query5 constituencies={constituencies}></Query5>
+                    </CardContent>
+                </Card>
+                <Card className={classes.card}>
+                    <CardContent>
+                        <Query6 constituencies={constituencies}></Query6>
+                    </CardContent>
+                </Card>
+            </div>}
         </div>
     )
 }
