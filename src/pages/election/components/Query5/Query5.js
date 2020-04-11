@@ -1,47 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { getConstituencyContestants } from '../../../../election.service.js';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import { partyLostDeposit } from '../../../../election.service.js';
+import Select from 'react-select-virtualized';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 // styles
 import useStyles from "./styles";
-import { useTheme } from "@material-ui/styles";
 
 export default function Query5(props) {
-    const [selectedConstituency, setSelectedConstituency] = React.useState('');
-    const [constContestants, setConstContestants] = React.useState(undefined)
+    const [selectedParty, setSelectedParty] = useState('');
+    const [lostDeposits, setLostDeposits] = useState([]);
     var classes = useStyles();
-    var theme = useTheme();
+    const selectOptions = [
+        { value: 'con', label: 'Conservative'},
+        { value: 'lab', label: 'Labour'},
+        { value: 'lib', label: 'Liberal Democrats'},
+        { value: 'sdp', label: 'Social Democrats'},
+        { value: 'ind', label: 'Independant'},
+        { value: 'snp', label: 'Scottish Nationalist Party'},
+        { value: 'eco', label: 'Eco Warriors'},
+    ]
 
     useEffect(() => {
-        getConstituencyContestants(selectedConstituency).then((contestants) => {
-            setConstContestants(contestants);
-            console.log(contestants);
+        partyLostDeposit(selectedParty.value).then((ld) => {
+            setLostDeposits(ld);
+            console.log(ld);
         });
-    }, [selectedConstituency])
+    }, [selectedParty])
 
-    const handleChange = (event) => {
-        setSelectedConstituency(event.target.value);
+    const handleChange = (selected) => {
+        setSelectedParty(selected);
     };
 
     return (
         <div>
-            <h3>Query 5</h3>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="const-label">Constituency</InputLabel>
+            <h3>Query 5 - Parties Lost Deposits</h3>
+                <InputLabel className={classes.label}>Party</InputLabel>
                 <Select
-                    labelId="const-label"
-                    id="const-select"
-                    value={selectedConstituency}
-                    onChange={handleChange}>
-                    {props.constituencies.map(aConst => <MenuItem key={aConst._id} value={aConst}>{aConst.area}</MenuItem>)}
-                </Select>
-            </FormControl>
-            { constContestants && 
-                constContestants.map((contests) => <div key={contests.ukvotes}>{contests.party} : {contests.ukvotes}</div>)
-            }
+                    options={selectOptions}
+                    value={selectedParty}
+                    onChange={handleChange}/>
+            <List>
+                { lostDeposits.length > 0 && 
+                    lostDeposits.map((constituency) => <ListItem key={constituency.area}>{constituency.area}</ListItem>)}
+            </List>
         </div>
     )
 }

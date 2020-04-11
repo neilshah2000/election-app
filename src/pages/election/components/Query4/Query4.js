@@ -1,47 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { getConstituencyContestants } from '../../../../election.service.js';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import { getElectionRanking } from '../../../../election.service.js';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 // styles
 import useStyles from "./styles";
-import { useTheme } from "@material-ui/styles";
 
 export default function Query4(props) {
-    const [selectedConstituency, setSelectedConstituency] = React.useState('');
-    const [constContestants, setConstContestants] = React.useState(undefined)
+    const [ranking, setRanking] = useState(undefined)
     var classes = useStyles();
-    var theme = useTheme();
 
     useEffect(() => {
-        getConstituencyContestants(selectedConstituency).then((contestants) => {
-            setConstContestants(contestants);
-            console.log(contestants);
+        getElectionRanking().then((rank) => {
+            setRanking(rank);
+            console.log(rank);
         });
-    }, [selectedConstituency])
-
-    const handleChange = (event) => {
-        setSelectedConstituency(event.target.value);
-    };
+    }, [])
 
     return (
         <div>
-            <h3>Query 4</h3>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="const-label">Constituency</InputLabel>
-                <Select
-                    labelId="const-label"
-                    id="const-select"
-                    value={selectedConstituency}
-                    onChange={handleChange}>
-                    {props.constituencies.map(aConst => <MenuItem key={aConst._id} value={aConst}>{aConst.area}</MenuItem>)}
-                </Select>
-            </FormControl>
-            { constContestants && 
-                constContestants.map((contests) => <div key={contests.ukvotes}>{contests.party} : {contests.ukvotes}</div>)
-            }
+            <h3>Query 4 - Constituencies Won</h3>
+            <List>
+                { ranking && 
+                        ranking.map((party) => <ListItem key={party.party}>{party.party} : {party.constituencyCount}</ListItem>)}
+            </List>
         </div>
     )
 }

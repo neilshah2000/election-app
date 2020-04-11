@@ -1,47 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { getConstituencyContestants } from '../../../../election.service.js';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import { allLostDeposits } from '../../../../election.service.js';
+import PropTypes from 'prop-types';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { FixedSizeList } from 'react-window';
 
 // styles
 import useStyles from "./styles";
-import { useTheme } from "@material-ui/styles";
 
 export default function Query6(props) {
-    const [selectedConstituency, setSelectedConstituency] = React.useState('');
-    const [constContestants, setConstContestants] = React.useState(undefined)
+    const [lostDeposits, setLostDeposits] = useState([])
     var classes = useStyles();
-    var theme = useTheme();
 
     useEffect(() => {
-        getConstituencyContestants(selectedConstituency).then((contestants) => {
-            setConstContestants(contestants);
-            console.log(contestants);
+        allLostDeposits().then((ld) => {
+            setLostDeposits(ld);
+            console.log(ld);
         });
-    }, [selectedConstituency])
+    }, [])
 
-    const handleChange = (event) => {
-        setSelectedConstituency(event.target.value);
+    function renderRow(props) {
+        const { index, style } = props;
+        try{
+            return (
+                <ListItem button style={style} key={index}>
+                    <ListItemText className={classes.item}
+                        primary={lostDeposits[index].constituency}
+                        secondary={lostDeposits[index].lostDepositParty} />
+                </ListItem>
+            );
+        } catch(err){
+            console.error(err);
+            return (
+                <ListItem button style={style} key={index}>
+                    <ListItemText className={classes.item}
+                        primary={`Error at index ${index}`}/>
+                </ListItem>
+            );
+        }
+    }
+    
+    renderRow.propTypes = {
+        index: PropTypes.number.isRequired,
+        style: PropTypes.object.isRequired,
     };
 
     return (
         <div>
-            <h3>Query 6</h3>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="const-label">Constituency</InputLabel>
-                <Select
-                    labelId="const-label"
-                    id="const-select"
-                    value={selectedConstituency}
-                    onChange={handleChange}>
-                    {props.constituencies.map(aConst => <MenuItem key={aConst._id} value={aConst}>{aConst.area}</MenuItem>)}
-                </Select>
-            </FormControl>
-            { constContestants && 
-                constContestants.map((contests) => <div key={contests.ukvotes}>{contests.party} : {contests.ukvotes}</div>)
-            }
+            <h3>Query 6 - All Lost Deposits</h3>
+            <div className={classes.root}>
+            { lostDeposits.length > 0 && 
+                <FixedSizeList height={400} width={500} itemSize={60} itemCount={lostDeposits.length}>
+                    {renderRow}
+                </FixedSizeList>}
+            </div>
         </div>
     )
 }

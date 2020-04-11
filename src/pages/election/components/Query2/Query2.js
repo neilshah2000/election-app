@@ -1,47 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { getConstituencyContestants } from './../../../../election.service.js';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import Select from 'react-select-virtualized';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 // styles
 import useStyles from "./styles";
-import { useTheme } from "@material-ui/styles";
 
 export default function Query2(props) {
-    const [selectedConstituency, setSelectedConstituency] = React.useState('');
-    const [constContestants, setConstContestants] = React.useState(undefined)
+    const [selectedConstituency, setSelectedConstituency] = useState('');
+    const [constContestants, setConstContestants] = useState(undefined)
     var classes = useStyles();
-    var theme = useTheme();
 
     useEffect(() => {
-        getConstituencyContestants(selectedConstituency).then((contestants) => {
+        getConstituencyContestants(selectedConstituency.value).then((contestants) => {
             setConstContestants(contestants);
             console.log(contestants);
         });
     }, [selectedConstituency])
 
-    const handleChange = (event) => {
-        setSelectedConstituency(event.target.value);
+    const selectOptions = props.constituencies.map((myConst, index) => {
+        return {
+            value: myConst._id,
+            label: myConst.area
+        }
+    })
+
+    const handleChange = (selected) => {
+        setSelectedConstituency(selected);
     };
 
     return (
         <div>
-            <h3>Query 2</h3>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="const-label">Constituency</InputLabel>
+            <h3>Query 2 - Party Votes in Constituency</h3>
+                <InputLabel className={classes.label}>Constituency</InputLabel>
                 <Select
-                    labelId="const-label"
-                    id="const-select"
+                    options={selectOptions}
                     value={selectedConstituency}
-                    onChange={handleChange}>
-                    {props.constituencies.map(aConst => <MenuItem key={aConst._id} value={aConst}>{aConst.area}</MenuItem>)}
-                </Select>
-            </FormControl>
-            { constContestants && 
-                constContestants.map((contests) => <div key={contests.ukvotes}>{contests.party} : {contests.ukvotes}</div>)
-            }
+                    onChange={handleChange}/>
+            <List>
+                { constContestants && 
+                    constContestants.map((contests) => <ListItem key={contests.ukvotes}>{contests.party} : {contests.ukvotes}</ListItem>)}
+            </List>
         </div>
     )
 }

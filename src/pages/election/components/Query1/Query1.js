@@ -32,14 +32,12 @@ export default function Query1(props) {
 
     return (
         <div>
-            <h3>Query 1</h3>
-            <FormControl className={classes.formControl}>
-                <InputLabel id="const-label">Constituency</InputLabel>
+            <h3>Query 1 - Constituency Winner</h3>
+                <InputLabel className={classes.label}>Constituency</InputLabel>
                 <Select
                     options={selectOptions}
                     value={selectedConstituency}
                     onChange={handleChange}/>
-            </FormControl>
             { constWinner && 
                 <p>Winner: {constWinner.party}</p>}
         </div>

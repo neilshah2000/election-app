@@ -42,8 +42,12 @@ export default function Election(props) {
                 <Card className={classes.card}>
                     <CardContent>
                         <Box display="flex" p={1} bgcolor="background.paper">
-                            <Query3 constituencies={constituencies}></Query3>
-                            <Query4 constituencies={constituencies}></Query4>
+                            <Box p={1} flexGrow={1}>
+                                <Query3 constituencies={constituencies}></Query3>
+                            </Box>
+                            <Box p={1} flexGrow={1}>
+                                <Query4 constituencies={constituencies}></Query4>
+                            </Box>
                         </Box>
                     </CardContent>
                 </Card>
