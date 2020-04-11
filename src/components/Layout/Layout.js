@@ -12,7 +12,6 @@ import useStyles from "./styles";
 
 // components
 import Header from "../Header";
-import Sidebar from "../Sidebar";
 
 // pages
 import Election from '../../pages/election/Election';
@@ -30,7 +29,6 @@ function Layout(props) {
     <div className={classes.root}>
         <>
           <Header history={props.history} />
-          <Sidebar />
           <div
             className={classnames(classes.content, {
               [classes.contentShift]: layoutState.isSidebarOpened,
