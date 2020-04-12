@@ -1,4 +1,4 @@
-const backEndUrl = 'http://3.82.50.130:3000';
+const backEndUrl = 'http://3.82.50.130';
 
 exports.listAll = () => {
     return fetch(backEndUrl + '/api/election', {
