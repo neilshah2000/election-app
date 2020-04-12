@@ -27,7 +27,7 @@ export default function Election(props) {
     return (
         <div>
             <h1>Election Page</h1>
-            { constituencies.length > 0 &&
+            { constituencies && constituencies.length > 0 &&
             <div>
                 <Card className={classes.card}>
                     <CardContent>
