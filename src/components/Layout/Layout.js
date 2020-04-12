@@ -34,9 +34,7 @@ function Layout(props) {
             })}
           >
             <div className={classes.fakeToolbar} />
-            <Switch>
-                <Route path="/app/election" component={Election} />
-            </Switch>
+            <Election></Election>
           </div>
         </>
     </div>

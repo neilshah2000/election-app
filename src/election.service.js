@@ -1,7 +1,5 @@
-const backEndUrl = 'http://3.82.50.130';
-
 exports.listAll = () => {
-    return fetch(backEndUrl + '/api/election', {
+    return fetch('/api/election', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -15,7 +13,7 @@ exports.listAll = () => {
 }
 
 exports.getConstituencyWinner = (id) => {
-    return fetch(backEndUrl + '/api/election/winner/' + id, {
+    return fetch('/api/election/winner/' + id, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -29,7 +27,7 @@ exports.getConstituencyWinner = (id) => {
 }
 
 exports.getConstituencyContestants = (id) => {
-    return fetch(backEndUrl + '/api/election/contested/' + id, {
+    return fetch('/api/election/contested/' + id, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -43,7 +41,7 @@ exports.getConstituencyContestants = (id) => {
 }
 
 exports.getElectionWinner = () => {
-    return fetch(backEndUrl + '/api/election/won', {
+    return fetch('/api/election/won', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -57,7 +55,7 @@ exports.getElectionWinner = () => {
 }
 
 exports.getElectionRanking = () => {
-    return fetch(backEndUrl + '/api/election/ranking', {
+    return fetch('/api/election/ranking', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -71,7 +69,7 @@ exports.getElectionRanking = () => {
 }
 
 exports.partyLostDeposit = (party) => {
-    return fetch(backEndUrl + '/api/election/partyLostDeposit/' + party, {
+    return fetch('/api/election/partyLostDeposit/' + party, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -85,7 +83,7 @@ exports.partyLostDeposit = (party) => {
 }
 
 exports.allLostDeposits = () => {
-    return fetch(backEndUrl + '/api/election/lostDepositPairs', {
+    return fetch('/api/election/lostDepositPairs', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
